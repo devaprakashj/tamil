@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy Birthday Harini 🤍</title>
+    <meta name="description" content="A special birthday surprise for Harini">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@200;300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #111111;
+            --pink-soft: #f4a0b5;
+            --pink-light: #fce4ec;
+            --pink-glow: #ff6b9d;
+            --pink-deep: #e91e7a;
+            --white: #ffffff;
+            --white-soft: #f5f0f0;
+            --gold: #d4a574;
+            --gold-light: #f0d5a8;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-quote: #f4a0b5;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            font-family: 'Outfit', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== PRELOADER ===== */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        #preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .preloader-content {
+            text-align: center;
+        }
+
+        .preloader-heart {
+            font-size: 3rem;
+            animation: heartbeat 1.2s ease-in-out infinite;
+        }
+
+        .preloader-text {
+            margin-top: 1rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: 1rem;
+            color: var(--pink-soft);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.3); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.2); }
+        }
+
+        /* ===== MUSIC CONTROL ===== */
+        #music-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid rgba(244, 160, 181, 0.3);
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            color: var(--pink-soft);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #music-toggle.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #music-toggle:hover {
+            background: rgba(244, 160, 181, 0.15);
+            transform: scale(1.1);
+        }
+
+        .music-bars {
+            display: flex;
+            gap: 2px;
+            align-items: flex-end;
+            height: 16px;
+        }
+
+        .music-bars span {
+            display: block;
+            width: 3px;
+            background: var(--pink-soft);
+            border-radius: 2px;
+            transition: height 0.3s ease;
+        }
+
+        .music-bars.playing span:nth-child(1) { animation: bar 0.5s ease-in-out infinite alternate; height: 6px; }
+        .music-bars.playing span:nth-child(2) { animation: bar 0.5s ease-in-out 0.1s infinite alternate; height: 12px; }
+        .music-bars.playing span:nth-child(3) { animation: bar 0.5s ease-in-out 0.2s infinite alternate; height: 8px; }
+        .music-bars.playing span:nth-child(4) { animation: bar 0.5s ease-in-out 0.3s infinite alternate; height: 14px; }
+
+        .music-bars:not(.playing) span { height: 3px; }
+
+        @keyframes bar {
+            from { height: 4px; }
+            to { height: 16px; }
+        }
+
+        /* ===== PAGE INDICATOR ===== */
+        #page-indicator {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 9998;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease;
+        }
+
+        #page-indicator.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .page-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .page-dot.active {
+            background: var(--pink-soft);
+            box-shadow: 0 0 10px rgba(244, 160, 181, 0.5);
+            transform: scale(1.3);
+        }
+
+        /* ===== PAGES CONTAINER ===== */
+        #pages-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .page {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 1.2s ease, visibility 1.2s ease, transform 1.2s ease;
+            transform: scale(0.95);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .page.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+        }
+
+        /* ===== SPARKLE PARTICLES ===== */
+        .sparkle-container {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--pink-soft);
+            border-radius: 50%;
+            animation: sparkleFloat 6s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes sparkleFloat {
+            0% { opacity: 0; transform: translateY(100vh) scale(0); }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-20vh) scale(1); }
+        }
+
+        /* ===== PAGE 1 — OPENING ===== */
+        .page-opening {
+            background: radial-gradient(ellipse at center, #1a0a12 0%, var(--bg-dark) 70%);
+        }
+
+        .opening-particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        .opening-particle {
+            position: absolute;
+            font-size: 1rem;
+            opacity: 0;
+            animation: floatUp 8s ease-in-out infinite;
+        }
+
+        @keyframes floatUp {
+            0% { opacity: 0; transform: translateY(100vh) rotate(0deg); }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { opacity: 0; transform: translateY(-10vh) rotate(360deg); }
+        }
+
+        .opening-content {
+            text-align: center;
+            z-index: 2;
+            position: relative;
+        }
+
+        .opening-label {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 200;
+            font-size: 0.85rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--pink-soft);
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeSlideUp 1s ease 0.5s forwards;
+        }
+
+        .opening-name {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(3rem, 10vw, 6rem);
+            color: var(--white);
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            animation: fadeSlideUp 1s ease 1s forwards;
+            text-shadow: 0 0 40px rgba(244, 160, 181, 0.3);
+        }
+
+        .opening-nickname {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.3rem, 4vw, 2rem);
+            color: var(--pink-soft);
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            animation: fadeSlideUp 1s ease 1.5s forwards;
+        }
+
+        .opening-message {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeSlideUp 1s ease 2s forwards;
+        }
+
+        .opening-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 42px;
+            border: 1px solid var(--pink-soft);
+            border-radius: 50px;
+            background: transparent;
+            color: var(--pink-soft);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            opacity: 0;
+            animation: fadeSlideUp 1s ease 2.5s forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .opening-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(244, 160, 181, 0.1), rgba(233, 30, 122, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .opening-btn:hover::before {
+            opacity: 1;
+        }
+
+        .opening-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(244, 160, 181, 0.2);
+            border-color: var(--pink-glow);
+        }
+
+        .opening-btn .arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .opening-btn:hover .arrow {
+            transform: translateX(4px);
+        }
+
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== PHOTO PAGES ===== */
+        .photo-page {
+            background: var(--bg-dark);
+            padding: 2rem 1.5rem;
+        }
+
+        .photo-page-inner {
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Polaroid Style Photo */
+        .polaroid {
+            background: #fff;
+            padding: 12px 12px 40px 12px;
+            border-radius: 4px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4),
+                         0 0 80px rgba(244, 160, 181, 0.05);
+            display: inline-block;
+            transform: rotate(-1.5deg);
+            transition: transform 0.6s ease, box-shadow 0.6s ease;
+            margin-bottom: 2rem;
+            max-width: 85%;
+        }
+
+        .polaroid:hover {
+            transform: rotate(0deg) scale(1.02);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5),
+                         0 0 100px rgba(244, 160, 181, 0.1);
+        }
+
+        .polaroid.tilt-right {
+            transform: rotate(1.5deg);
+        }
+
+        .polaroid.tilt-right:hover {
+            transform: rotate(0deg) scale(1.02);
+        }
+
+        .polaroid img {
+            width: 100%;
+            max-height: 350px;
+            object-fit: cover;
+            border-radius: 2px;
+            display: block;
+        }
+
+        /* Dual Photo Layout */
+        .dual-photos {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .dual-photos .polaroid {
+            max-width: 42%;
+            margin-bottom: 0;
+        }
+
+        .dual-photos .polaroid img {
+            max-height: 250px;
+        }
+
+        /* Photo placeholder styling */
+        .photo-placeholder {
+            width: 100%;
+            min-height: 280px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 10px;
+            border-radius: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .photo-placeholder::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg,
+                transparent 40%,
+                rgba(244, 160, 181, 0.03) 50%,
+                transparent 60%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .photo-placeholder .camera-icon {
+            font-size: 2.5rem;
+            opacity: 0.4;
+        }
+
+        .photo-placeholder .placeholder-text {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Quote */
+        .page-quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--white-soft);
+            line-height: 1.8;
+            max-width: 500px;
+            position: relative;
+            padding: 0 1rem;
+        }
+
+        .page-quote::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: -5px;
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem;
+            color: var(--pink-soft);
+            opacity: 0.3;
+        }
+
+        /* Page number */
+        .page-number {
+            position: absolute;
+            bottom: 2rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 200;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* ===== NAVIGATION HINTS ===== */
+        .nav-hint {
+            position: absolute;
+            bottom: 3.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 200;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            color: rgba(244, 160, 181, 0.4);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+
+        .nav-arrow {
+            font-size: 1rem;
+            animation: bounceRight 1.5s ease-in-out infinite;
+        }
+
+        @keyframes bounceRight {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(5px); }
+        }
+
+        /* ===== PAGE 14 — FINALE ===== */
+        .page-finale {
+            background: var(--bg-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .finale-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 30% 20%, rgba(244, 160, 181, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(233, 30, 122, 0.05) 0%, transparent 50%),
+                var(--bg-dark);
+        }
+
+        .finale-hearts {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .floating-heart {
+            position: absolute;
+            color: var(--pink-soft);
+            opacity: 0;
+            animation: floatHeart 10s ease-in-out infinite;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) scale(0.5) rotate(0deg);
+            }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.4; }
+            100% {
+                opacity: 0;
+                transform: translateY(-10vh) scale(1) rotate(20deg);
+            }
+        }
+
+        .finale-content {
+            text-align: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        .finale-cake {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            animation: cakeBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes cakeBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .finale-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            color: var(--white);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 60px rgba(244, 160, 181, 0.3);
+        }
+
+        .finale-subtitle {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            color: var(--pink-soft);
+            margin-bottom: 0.3rem;
+        }
+
+        .finale-name {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            background: linear-gradient(135deg, var(--pink-soft), var(--gold-light), var(--pink-soft));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmerText 3s ease-in-out infinite;
+            margin-bottom: 0.3rem;
+        }
+
+        .finale-nickname {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+            color: var(--pink-soft);
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+
+        @keyframes shimmerText {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .finale-message {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--text-secondary);
+            line-height: 2;
+            max-width: 450px;
+            margin: 0 auto 2rem;
+        }
+
+        .finale-badge {
+            display: inline-block;
+            padding: 10px 30px;
+            border: 1px solid rgba(244, 160, 181, 0.3);
+            border-radius: 50px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: 0.85rem;
+            letter-spacing: 4px;
+            color: var(--pink-soft);
+            animation: glowPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(244, 160, 181, 0.1); }
+            50% { box-shadow: 0 0 40px rgba(244, 160, 181, 0.2); }
+        }
+
+        /* ===== CONFETTI ===== */
+        #confetti-canvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9997;
+        }
+
+        /* ===== SWIPE INSTRUCTION ===== */
+        .swipe-instruction {
+            position: fixed;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9998;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 200;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            color: rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .swipe-instruction.visible {
+            opacity: 1;
+        }
+
+        /* ===== TRANSITION OVERLAY ===== */
+        .transition-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-dark);
+            z-index: 9000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.6s ease;
+        }
+
+        .transition-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            .dual-photos .polaroid {
+                max-width: 45%;
+            }
+
+            .dual-photos .polaroid img {
+                max-height: 180px;
+            }
+
+            .polaroid {
+                padding: 8px 8px 30px 8px;
+                max-width: 90%;
+            }
+
+            .polaroid img {
+                max-height: 280px;
+            }
+
+            .page {
+                padding: 1.5rem 1rem;
+            }
+
+            #page-indicator {
+                right: 10px;
+            }
+
+            .page-dot {
+                width: 6px;
+                height: 6px;
+            }
+
+            .photo-placeholder {
+                min-height: 200px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .dual-photos {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .dual-photos .polaroid {
+                max-width: 80%;
+            }
+        }
+
+        /* ===== SCROLL BAR HIDDEN ===== */
+        ::-webkit-scrollbar { display: none; }
+        * { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="preloader-content">
+            <div class="preloader-heart">🤍</div>
+            <div class="preloader-text">preparing something special...</div>
+        </div>
+    </div>
+
+    <!-- Music Toggle -->
+    <button id="music-toggle" aria-label="Toggle Music">
+        <div class="music-bars" id="music-bars">
+            <span></span><span></span><span></span><span></span>
+        </div>
+    </button>
+
+    <!-- Page Indicator -->
+    <div id="page-indicator"></div>
+
+    <!-- Sparkle Particles -->
+    <div class="sparkle-container" id="sparkles"></div>
+
+    <!-- Transition Overlay -->
+    <div class="transition-overlay" id="transition-overlay"></div>
+
+    <!-- Confetti Canvas -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Swipe Instruction -->
+    <div class="swipe-instruction" id="swipe-instruction">SWIPE OR USE ARROW KEYS →</div>
+
+    <!-- ===== PAGES ===== -->
+    <div id="pages-container">
+
+        <!-- PAGE 1: Opening -->
+        <div class="page page-opening active" data-page="0">
+            <div class="opening-particles" id="opening-particles"></div>
+            <div class="opening-content">
+                <div class="opening-label">A Birthday Surprise</div>
+                <div class="opening-name">For Harini…</div>
+                <div class="opening-nickname">My Kutttiyeeehhhh 🤍</div>
+                <div class="opening-message">"I made a little something for you… 🎁"</div>
+                <button class="opening-btn" id="open-btn" onclick="nextPage()">
+                    Tap to open <span class="arrow">→</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- PAGE 2: Photo 1 -->
+        <div class="page photo-page" data-page="1">
+            <div class="photo-page-inner">
+                <div class="polaroid">
+                    <div class="photo-placeholder" id="photo-1">
+                        <span class="camera-icon">📸</span>
+                        <span class="placeholder-text">Photo 1</span>
+                    </div>
+                </div>
+                <div class="page-quote">
+                    Happy Birthday to the one who will always have a special place in my heart. 🤍
+                </div>
+            </div>
+            <div class="nav-hint">SWIPE <span class="nav-arrow">→</span></div>
+            <div class="page-number">02 / 14</div>
+        </div>
+
+        <!-- PAGE 3: Photo 2 -->
+        <div class="page photo-page" data-page="2">
+            <div class="photo-page-inner">
+                <div class="polaroid tilt-right">
+                    <div class="photo-placeholder" id="photo-2">
+                        <span class="camera-icon">📸</span>
+                        <span class="placeholder-text">Photo 2</span>
+                    </div>
+                </div>
+                <div class="page-quote">
+                    Today is all about celebrating YOU… ✨
+                </div>
+            </div>
+            <div class="nav-hint">SWIPE <span class="nav-arrow">→</span></div>
+            <div class="page-number">03 / 14</div>
+        </div>
+
+        <!-- PAGE 4: Photo 3 -->
+        <div class="page photo-page" data-page="3">
+            <div class="photo-page-inner">
+                <div class="polaroid">
+                    <div class="photo-placeholder" id="photo-3">
+                        <span class="camera-icon">📸</span>
+                        <span class="placeholder-text">Photo 3</span>
+                    </div>
+                </div>
+                <div class="page-quote">
+                    You made my life brighter in so many beautiful ways.
+                </div>
+            </div>
+            <div class="nav-hint">SWIPE <span class="nav-arrow">→</span></div>
+            <div class="page-number">04 / 14</div>
+        </div>
+
+        <!-- PAGE 5: Photos 4 & 5 -->
+        <div class="page photo-page" data-page="4">
+            <div class="photo-page-inner">
+                <div class="dual-photos">
+                    <div class="polaroid">
+                        <div class="photo-placeholder" id="photo-4">
+                            <span class="camera-icon">📸</span>
+                            <span class="placeholder-text">Photo 4</span>
+                        </div>
+                    </div>
+                    <div class="polaroid tilt-right">
+                        <div class="photo-placeholder" id="photo-5">
+                            <span class="camera-icon">📸</span>
+                            <span class="placeholder-text">Photo 5</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-quote">
+                    I hope this new year brings you endless happiness, good health, success and countless reasons to smile. ✨
+                </div>
+            </div>
+            <div class="nav-hint">SWIPE <span class="nav-arrow">→</span></div>
+            <div class="page-number">05 / 14</div>
+        </div>
+
+        <!-- PAGE 6: Photo 6 -->
+        <div class="page photo-page" data-page="5">
+            <div class="photo-page-inner">
+                <div class="polaroid tilt-right">
+                    <div class="photo-placeholder" id="photo-6">
+                        <span class="camera-icon">📸</span>
+                        <span class="placeholder-text">Photo 6</span>
+                    </div>
+                </div>
+                <div class="page-quote">
+                    I'll always be grateful for every memory we shared. 🤍
+                </div>
+            </div>
+            <div class="nav-hint">SWIPE <span class="nav-arrow">→</span></div>
+            <div class="page-number">06 / 14</div>
+        </div>
+
+        <!-- PAGE 7: Photos 7 & 8 -->
+        <div class="page photo-page" data-page="6">
+            <div class="photo-page-inner">
+                <div class="dual-photos">
+                    <div class="polaroid">
+                        <div class="photo-placeholder" id="photo-7">
+                            <span class="camera-icon">📸</span>
+                            <span class="placeholder-text">Photo 7</span>
+                        </div>
+                    </div>
+                    <div class="polaroid tilt-right">
+                        <div class="photo-placeholder" id="photo-8">
+                            <span class="camera-icon">📸</span>
+                            <span class="placeholder-text">Photo 8</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-quote">
+                    You've been my support system, my cheerleader, my constant, and my safe place.
+                </div>
+            </div>
+            <div class="nav-hint">SWIPE <span class="nav-arrow">→</span></div>
+            <div class="page-number">07 / 14</div>
+        </div>
+
+        <!-- PAGE 8: Photo 9 -->
+        <div class="page photo-page" data-page="7">
+            <div class="photo-page-inner">
+                <div class="polaroid">
+                    <div class="photo-placeholder" id="photo-9">
+                        <span class="camera-icon">📸</span>
+                        <span class="placeholder-text">Photo 9</span>
+                    </div>
+                </div>
+                <div class="page-quote">
+                    Thank you for understanding me even when I couldn't explain myself.
+                </div>
+            </div>
+            <div class="nav-hint">SWIPE <span class="nav-arrow">→</span></div>
+            <div class="page-number">08 / 14</div>
+        </div>
+
+        <!-- PAGE 9: Photos 10 & 11 -->
+        <div class="page photo-page" data-page="8">
+            <div class="photo-page-inner">
+                <div class="dual-photos">
+                    <div class="polaroid tilt-right">
+                        <div class="photo-placeholder" id="photo-10">
+                            <span class="camera-icon">📸</span>
+                            <span class="placeholder-text">Photo 10</span>
+                        </div>
+                    </div>
+                    <div class="polaroid">
+                        <div class="photo-placeholder" id="photo-11">
+                            <span class="camera-icon">📸</span>
+                            <span class="placeholder-text">Photo 11</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-quote">
+                    You deserve a life filled with love, peace and dreams that come true. 🌙
+                </div>
+            </div>
+            <div class="nav-hint">SWIPE <span class="nav-arrow">→</span></div>
+            <div class="page-number">09 / 14</div>
+        </div>
+
+        <!-- PAGE 10: Photo 12 -->
+        <div class="page photo-page" data-page="9">
+            <div class="photo-page-inner">
+                <div class="polaroid tilt-right">
+                    <div class="photo-placeholder" id="photo-12">
+                        <span class="camera-icon">📸</span>
+                        <span class="placeholder-text">Photo 12</span>
+                    </div>
+                </div>
+                <div class="page-quote">
+                    Seeing you happy will always make my heart happy too. ❤️
+                </div>
+            </div>
+            <div class="nav-hint">SWIPE <span class="nav-arrow">→</span></div>
+            <div class="page-number">10 / 14</div>
+        </div>
+
+        <!-- PAGE 11: Photo 13 -->
+        <div class="page photo-page" data-page="10">
+            <div class="photo-page-inner">
+                <div class="polaroid">
+                    <div class="photo-placeholder" id="photo-13">
+                        <span class="camera-icon">📸</span>
+                        <span class="placeholder-text">Photo 13</span>
+                    </div>
+                </div>
+                <div class="page-quote">
+                    You're truly one of a kind and so incredibly special.
+                </div>
+            </div>
+            <div class="nav-hint">SWIPE <span class="nav-arrow">→</span></div>
+            <div class="page-number">11 / 14</div>
+        </div>
+
+        <!-- PAGE 12: Photo 14 -->
+        <div class="page photo-page" data-page="11">
+            <div class="photo-page-inner">
+                <div class="polaroid tilt-right">
+                    <div class="photo-placeholder" id="photo-14">
+                        <span class="camera-icon">📸</span>
+                        <span class="placeholder-text">Photo 14</span>
+                    </div>
+                </div>
+                <div class="page-quote">
+                    Keep smiling, keep shining, and never stop believing in yourself. ✨
+                </div>
+            </div>
+            <div class="nav-hint">SWIPE <span class="nav-arrow">→</span></div>
+            <div class="page-number">12 / 14</div>
+        </div>
+
+        <!-- PAGE 13: Photo 15 -->
+        <div class="page photo-page" data-page="12">
+            <div class="photo-page-inner">
+                <div class="polaroid">
+                    <div class="photo-placeholder" id="photo-15">
+                        <span class="camera-icon">📸</span>
+                        <span class="placeholder-text">Photo 15</span>
+                    </div>
+                </div>
+                <div class="page-quote">
+                    I'll always be rooting for you in everything you do. 🤍
+                </div>
+            </div>
+            <div class="nav-hint">SWIPE <span class="nav-arrow">→</span></div>
+            <div class="page-number">13 / 14</div>
+        </div>
+
+        <!-- PAGE 14: Final Surprise -->
+        <div class="page page-finale" data-page="13">
+            <div class="finale-bg"></div>
+            <div class="finale-hearts" id="finale-hearts"></div>
+            <div class="finale-content">
+                <div class="finale-cake">🎂</div>
+                <div class="finale-title">Happy Birthday</div>
+                <div class="finale-subtitle">My Love ❤️</div>
+                <div class="finale-name">Harini</div>
+                <div class="finale-nickname">— Kutttiyeeehhhh 🤍 —</div>
+                <div class="finale-message">
+                    I'll always wish the very best for you,<br>
+                    today and always.
+                </div>
+                <div class="finale-badge">❤️ FOREVER SPECIAL ❤️</div>
+            </div>
+            <div class="page-number">14 / 14</div>
+        </div>
+
+    </div>
+
+    <!-- Background Music (royalty-free soft piano) -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://cdn.pixabay.com/audio/2024/11/28/audio_3eff08b46c.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // ===== STATE =====
+        let currentPage = 0;
+        const totalPages = 14;
+        let isTransitioning = false;
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let musicStarted = false;
+
+        // ===== DOM =====
+        const pages = document.querySelectorAll('.page');
+        const overlay = document.getElementById('transition-overlay');
+        const musicToggle = document.getElementById('music-toggle');
+        const musicBars = document.getElementById('music-bars');
+        const bgMusic = document.getElementById('bg-music');
+        const pageIndicator = document.getElementById('page-indicator');
+        const swipeInstruction = document.getElementById('swipe-instruction');
+        const preloader = document.getElementById('preloader');
+
+        // ===== PRELOADER =====
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                preloader.classList.add('hidden');
+                createSparkles();
+                createOpeningParticles();
+            }, 2000);
+        });
+
+        // ===== SPARKLE PARTICLES =====
+        function createSparkles() {
+            const container = document.getElementById('sparkles');
+            for (let i = 0; i < 30; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.animationDelay = Math.random() * 6 + 's';
+                sparkle.style.animationDuration = (4 + Math.random() * 4) + 's';
+                sparkle.style.width = sparkle.style.height = (2 + Math.random() * 3) + 'px';
+
+                const colors = ['var(--pink-soft)', 'var(--gold-light)', '#ffffff'];
+                sparkle.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+                container.appendChild(sparkle);
+            }
+        }
+
+        // ===== OPENING PARTICLES =====
+        function createOpeningParticles() {
+            const container = document.getElementById('opening-particles');
+            const emojis = ['🤍', '✨', '💕', '🌸', '💗', '⭐', '🤍', '✨'];
+            for (let i = 0; i < 20; i++) {
+                const p = document.createElement('div');
+                p.className = 'opening-particle';
+                p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                p.style.left = Math.random() * 100 + '%';
+                p.style.animationDelay = Math.random() * 8 + 's';
+                p.style.animationDuration = (6 + Math.random() * 6) + 's';
+                p.style.fontSize = (0.6 + Math.random() * 1) + 'rem';
+                container.appendChild(p);
+            }
+        }
+
+        // ===== PAGE INDICATOR =====
+        function buildPageIndicator() {
+            pageIndicator.innerHTML = '';
+            for (let i = 0; i < totalPages; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'page-dot' + (i === currentPage ? ' active' : '');
+                dot.addEventListener('click', () => goToPage(i));
+                pageIndicator.appendChild(dot);
+            }
+        }
+
+        function updatePageIndicator() {
+            const dots = pageIndicator.querySelectorAll('.page-dot');
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentPage);
+            });
+        }
+
+        buildPageIndicator();
+
+        // ===== NAVIGATION =====
+        function goToPage(index) {
+            if (isTransitioning || index === currentPage || index < 0 || index >= totalPages) return;
+            isTransitioning = true;
+
+            // Fade out
+            overlay.classList.add('active');
+
+            setTimeout(() => {
+                pages[currentPage].classList.remove('active');
+                currentPage = index;
+                pages[currentPage].classList.add('active');
+                updatePageIndicator();
+
+                // Show controls after leaving opening
+                if (currentPage > 0) {
+                    pageIndicator.classList.add('visible');
+                    musicToggle.classList.add('visible');
+                    swipeInstruction.classList.add('visible');
+                    if (!musicStarted) {
+                        startMusic();
+                    }
+                }
+
+                // Finale confetti
+                if (currentPage === totalPages - 1) {
+                    swipeInstruction.classList.remove('visible');
+                    createFinaleHearts();
+                    setTimeout(launchConfetti, 500);
+                }
+
+                // Fade in
+                setTimeout(() => {
+                    overlay.classList.remove('active');
+                    isTransitioning = false;
+                }, 400);
+            }, 600);
+        }
+
+        function nextPage() {
+            goToPage(currentPage + 1);
+        }
+
+        function prevPage() {
+            goToPage(currentPage - 1);
+        }
+
+        // ===== KEYBOARD NAV =====
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+                e.preventDefault();
+                nextPage();
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                prevPage();
+            }
+        });
+
+        // ===== TOUCH / SWIPE NAV =====
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        document.addEventListener('touchend', (e) => {
+            const deltaX = e.changedTouches[0].clientX - touchStartX;
+            const deltaY = e.changedTouches[0].clientY - touchStartY;
+
+            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+                if (deltaX < 0) nextPage();
+                else prevPage();
+            }
+        }, { passive: true });
+
+        // ===== MOUSE WHEEL NAV =====
+        let wheelTimeout = null;
+        document.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            if (wheelTimeout) return;
+            wheelTimeout = setTimeout(() => { wheelTimeout = null; }, 1200);
+            if (e.deltaY > 0) nextPage();
+            else prevPage();
+        }, { passive: false });
+
+        // ===== CLICK NAV (anywhere on photo pages) =====
+        document.querySelectorAll('.photo-page').forEach(page => {
+            page.addEventListener('click', (e) => {
+                if (e.target.closest('.polaroid')) return; // don't navigate when clicking photos
+                const rect = page.getBoundingClientRect();
+                const clickX = e.clientX / rect.width;
+                if (clickX > 0.3) nextPage();
+                else prevPage();
+            });
+        });
+
+        // ===== MUSIC =====
+        function startMusic() {
+            musicStarted = true;
+            bgMusic.volume = 0.3;
+            bgMusic.play().then(() => {
+                musicBars.classList.add('playing');
+            }).catch(() => {
+                musicStarted = false;
+            });
+        }
+
+        musicToggle.addEventListener('click', () => {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                musicBars.classList.add('playing');
+            } else {
+                bgMusic.pause();
+                musicBars.classList.remove('playing');
+            }
+        });
+
+        // ===== FINALE FLOATING HEARTS =====
+        function createFinaleHearts() {
+            const container = document.getElementById('finale-hearts');
+            container.innerHTML = '';
+            const hearts = ['❤️', '🤍', '💕', '💗', '💖', '🩷'];
+            for (let i = 0; i < 25; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 8 + 's';
+                heart.style.animationDuration = (8 + Math.random() * 8) + 's';
+                heart.style.fontSize = (0.8 + Math.random() * 1.5) + 'rem';
+                container.appendChild(heart);
+            }
+        }
+
+        // ===== CONFETTI =====
+        function launchConfetti() {
+            const canvas = document.getElementById('confetti-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const particles = [];
+            const colors = ['#f4a0b5', '#ff6b9d', '#fce4ec', '#d4a574', '#f0d5a8', '#ffffff', '#e91e7a', '#ff9ec0'];
+            const shapes = ['circle', 'rect', 'heart'];
+
+            for (let i = 0; i < 150; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    size: Math.random() * 8 + 3,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    shape: shapes[Math.floor(Math.random() * shapes.length)],
+                    speedX: (Math.random() - 0.5) * 4,
+                    speedY: Math.random() * 3 + 2,
+                    rotation: Math.random() * 360,
+                    rotationSpeed: (Math.random() - 0.5) * 10,
+                    opacity: 1,
+                    fadeSpeed: 0.002 + Math.random() * 0.003
+                });
+            }
+
+            function drawHeart(ctx, x, y, size) {
+                ctx.beginPath();
+                const topCurveHeight = size * 0.3;
+                ctx.moveTo(x, y + topCurveHeight);
+                ctx.bezierCurveTo(x, y, x - size / 2, y, x - size / 2, y + topCurveHeight);
+                ctx.bezierCurveTo(x - size / 2, y + (size + topCurveHeight) / 2, x, y + (size + topCurveHeight) / 1.5, x, y + size);
+                ctx.bezierCurveTo(x, y + (size + topCurveHeight) / 1.5, x + size / 2, y + (size + topCurveHeight) / 2, x + size / 2, y + topCurveHeight);
+                ctx.bezierCurveTo(x + size / 2, y, x, y, x, y + topCurveHeight);
+                ctx.closePath();
+                ctx.fill();
+            }
+
+            let animFrame;
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                let alive = false;
+
+                particles.forEach(p => {
+                    if (p.opacity <= 0) return;
+                    alive = true;
+
+                    p.x += p.speedX;
+                    p.y += p.speedY;
+                    p.rotation += p.rotationSpeed;
+                    p.speedY += 0.03;
+                    p.opacity -= p.fadeSpeed;
+
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate((p.rotation * Math.PI) / 180);
+                    ctx.globalAlpha = Math.max(0, p.opacity);
+                    ctx.fillStyle = p.color;
+
+                    if (p.shape === 'circle') {
+                        ctx.beginPath();
+                        ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2);
+                        ctx.fill();
+                    } else if (p.shape === 'rect') {
+                        ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2);
+                    } else {
+                        drawHeart(ctx, 0, 0, p.size);
+                    }
+
+                    ctx.restore();
+                });
+
+                if (alive) {
+                    animFrame = requestAnimationFrame(animate);
+                }
+            }
+
+            animate();
+
+            // Second burst after 2 seconds
+            setTimeout(() => {
+                for (let i = 0; i < 80; i++) {
+                    particles.push({
+                        x: canvas.width / 2 + (Math.random() - 0.5) * 200,
+                        y: canvas.height * 0.3,
+                        size: Math.random() * 10 + 3,
+                        color: colors[Math.floor(Math.random() * colors.length)],
+                        shape: shapes[Math.floor(Math.random() * shapes.length)],
+                        speedX: (Math.random() - 0.5) * 8,
+                        speedY: -(Math.random() * 6 + 2),
+                        rotation: Math.random() * 360,
+                        rotationSpeed: (Math.random() - 0.5) * 15,
+                        opacity: 1,
+                        fadeSpeed: 0.003 + Math.random() * 0.004
+                    });
+                }
+            }, 2000);
+
+            // Resize handler
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+        }
+
+        // ===== PHOTO LOADING =====
+        // To add your photos, place them in the "photos" folder and update the paths below.
+        // Supported: photo-1.jpg through photo-15.jpg
+        const photoMap = {
+            'photo-1': 'photos/photo-1.jpg',
+            'photo-2': 'photos/photo-2.jpg',
+            'photo-3': 'photos/photo-3.jpg',
+            'photo-4': 'photos/photo-4.jpg',
+            'photo-5': 'photos/photo-5.jpg',
+            'photo-6': 'photos/photo-6.jpg',
+            'photo-7': 'photos/photo-7.jpg',
+            'photo-8': 'photos/photo-8.jpg',
+            'photo-9': 'photos/photo-9.jpg',
+            'photo-10': 'photos/photo-10.jpg',
+            'photo-11': 'photos/photo-11.jpg',
+            'photo-12': 'photos/photo-12.jpg',
+            'photo-13': 'photos/photo-13.jpg',
+            'photo-14': 'photos/photo-14.jpg',
+            'photo-15': 'photos/photo-15.jpg'
+        };
+
+        // Try loading actual photos; keep placeholders if not found
+        Object.entries(photoMap).forEach(([id, src]) => {
+            const container = document.getElementById(id);
+            if (!container) return;
+
+            const img = new Image();
+            img.onload = () => {
+                const imgEl = document.createElement('img');
+                imgEl.src = src;
+                imgEl.alt = 'A special memory';
+                imgEl.loading = 'lazy';
+                container.replaceWith(imgEl);
+            };
+            img.onerror = () => {
+                // Keep the placeholder — photo not found
+            };
+            img.src = src;
+        });
+    </script>
+</body>
+</html>
